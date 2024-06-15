@@ -28,5 +28,6 @@ body{
 /* map styles */
 div.map{
     background-color: aqua;
+    position: relative;
     flex-grow: 1;
 }

@@ -1,3 +1,5 @@
+import {Components, Map_search_bar, Map} from "./html-components.js";
+
 const body = document.getElementsByTagName("body")[0];
 
 export function build_base_html (){
@@ -22,6 +24,9 @@ function build_map_div(){
     const map = document.createElement("div");
     map.classList.add("map");
     map.id = 'map';
+    map.zinde=0;
     body.appendChild(map);
+    map.appendChild(new Map_search_bar().container);
+    new Map();
 }
 
