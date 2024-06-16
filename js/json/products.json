@@ -1,0 +1,13 @@
+
+[
+    {"id":0, "name":"Pan de mesa Bimbo 500g", "description":"Pan de mesa"},
+    {"id":1, "name":"Arroz Molinos", "description":"Arroz Blanco calidad 0000"},
+    {"id":2, "name":"Cerveza Quilmes Clasica", "description":"Cerveza de cebada 1L"},
+    {"id":3, "name":"Yerba Mate Rosamonte", "description":"Yerba mate con hoja, palo y polvillo"},
+    {"id":4, "name":"SmartTv Philips 50 Pulgadas", "description":"SO android TV, 4k"},
+    {"id":5, "name":"Manteca La Serenisima", "description":"Manteca 200g"},
+    {"id":6, "name":"notebook Assus", "description":"Core i7 11700k, 16gb ram, 500bg ssd"},
+    {"id":7, "name":"logitech Mx Mechanical", "description":"Teclado mechanico logitech"},
+    {"id":8, "name":"Marshall Major Iv", "description":"Auriculares inalambricos, bteria con 80 horas de duracion, carga wifi"},
+    {"id":9, "name":"1kg Helado generico", "description":"1 kilo de helado, sabores clasicos"}
+]

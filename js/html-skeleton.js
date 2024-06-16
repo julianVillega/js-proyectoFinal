@@ -25,8 +25,8 @@ function build_map_div(){
     map.classList.add("map");
     map.id = 'map';
     map.zinde=0;
-    body.appendChild(map);
     map.appendChild(new Map_search_bar().container);
+    body.appendChild(map);
     new Map();
 }
 

@@ -1,5 +1,14 @@
-class Store{
-    static stores = [];
+async function fechJsonData(url){
+    const response = await fetch(url);
+    const json = await response.json();
+    return json;
+}
+
+export class Store{
+    static stores;    
+    static async initialize(){
+        Store.stores = await fechJsonData('./js/json/stores.json');
+    }
     constructor(id, name, address, latlng){
         this.id = id;        
         this.name = name;        
@@ -13,7 +22,7 @@ class Store{
     static findBylatLng = latlng => this.stores.fillter(store => store.latlng === latlng);
 }
 
-class Price{
+export class Price{
     static prices = [];
     constructor(product, price, store, date){
         this.product = product;            
@@ -31,7 +40,7 @@ class Price{
     }
 }
 
-class Product {
+export class Product {
     static products = [];
     constructor(id, name, description) {
         this.id = id;
