@@ -16,10 +16,10 @@ export class Store{
         this.latlng = latlng;
         stores.push(this);            
     }
-    static findById = id => this.stores.fillter(store => store.id === id);
-    static findByName = name => this.stores.fillter(store => store.name === name);
-    static findByAddress = address => this.stores.fillter(store => store.address === address);
-    static findBylatLng = latlng => this.stores.fillter(store => store.latlng === latlng);
+    static findById = id => this.stores.filter(store => store.id === id);
+    static findByName = name => this.stores.filter(store => store.name.toLowerCase().includes(name));
+    static findByAddress = address => this.stores.filter(store => store.address.toLowerCase().includes(address));
+    static findBylatLng = latlng => this.stores.filter(store => store.latlng === latlng);
 }
 
 export class Price{

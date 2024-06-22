@@ -1,4 +1,8 @@
-import {Components, Map_search_bar, Map} from "./html-components.js";
+// import {Components} from "./html-components.js";
+import {Map} from "./components/map.js";
+import {Map_search_bar} from "./components/mapSearchBar.js";
+import {ResultContainer} from "./components/resultContainer.js";
+
 
 const body = document.getElementsByTagName("body")[0];
 
@@ -25,7 +29,8 @@ function build_map_div(){
     map.classList.add("map");
     map.id = 'map';
     map.zinde=0;
-    map.appendChild(new Map_search_bar().container);
+    map.appendChild(new Map_search_bar('mapSearchBar').container);
+    map.appendChild(new ResultContainer('mapResultContainer').container);
     body.appendChild(map);
     new Map();
 }

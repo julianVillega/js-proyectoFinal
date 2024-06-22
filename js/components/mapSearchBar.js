@@ -1,25 +1,20 @@
-
-export class Components {
-    static components = [1,2,3];
-
-    static add(component){
-        Components.components.push(component);
-    }
-    static remove(component){
-        Components.components = Components.components.filter(c => c != component);
-    }
-}
+import {Store} from "../modelClases.js";
+import {Map} from "./map.js";
+// import { ResultContainer } from "./resultContainer.js";
+import { Components } from "./components.js";
+import { StoreSearchResult } from "./storeSearchResult.js";
 
 export class Map_search_bar{
-    constructor(){
+    constructor(id){
+        this.id = id;
         this.container = document.createElement("div");
-        this.container.classList.add("container");
+        this.container.classList.add("map-search-bar-container");
         this.state = {
             search_type: "stores"
         }
         this.container.innerHTML =`
         <style>
-            .container{
+            .map-search-bar-container{
                 background-color:#e5e5e5;
                 position: absolute;
                 top:10px;
@@ -75,47 +70,19 @@ export class Map_search_bar{
             this.container.querySelector("#btn-search-products").classList.add('btn-selected');
             this.container.querySelector("#btn-search-stores").classList.remove('btn-selected');        
         };
-    }
-}
-
-export class Map{
-    static storeMarkers = [];
-    constructor() {
-        this.map = L.map('map',{zoomControl:false}).setView([-34.92052462063165, -57.94446936030479], 13);
-        // Add the OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
-    }
-
-    addStoreMarker(store){
-        const storeMarker = new ComercioMarker(store);
-        this.storeMarkers.push(storeMarker);
-        storeMarker.marker.addTo(this.map);
-        return storeMarker;
-    }
-
-    removeStoreMarker(marker){
-        this.map.removeLayer(marker);
-        this.storeMarkers = this.storeMarkers.filter(m => m !== marker);
-    }
-
-    plotStoreMarkers(stores){
-        for(let store of stores){
-            const storeMarker = this.addStoreMarker(store);
-            storeMarker.marker.on('click',() => armarVistaDeComercio(store))
+        
+        this.container.querySelector("#map-search-text-input").oninput = 
+        (e) => {
+            const searchResults = Store.findByName(e.target.value);
+            const resultContainer = Components.get('mapResultContainer');
+            Map.removeAllMarkrs();
+            const mockresults = [];
+            for(let result of searchResults){
+                Map.addStoreMarker(result);
+                mockresults.push(new StoreSearchResult(result).container);
+                }
+            resultContainer.removeAllElements();
+            resultContainer.addElemnts(...mockresults);
         }
-    }
-
-    getStoreMarker(store){
-        return this.storeMarkers.filter(cm => cm.store == store)[0];
-    }
-    
-}
-
-class ComercioMarker{
-    constructor(store){
-        this.marker = L.marker(store.latlng);        
-        this.store = store;
     }
 }

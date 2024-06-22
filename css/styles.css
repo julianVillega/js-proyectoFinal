@@ -27,7 +27,44 @@ body{
 
 /* map styles */
 div.map{
-    background-color: aqua;
     position: relative;
     flex-grow: 1;
+}
+
+/* store marker */
+.marker--highlight{
+    filter:hue-rotate(45deg);
+}
+
+/* result container styles */
+.result-container{
+    position:absolute;
+    left:10px;
+    top:70px;
+    height:75vh;
+    width:25vw;
+    z-index:9999;
+    border-radius:1rem;
+    background-color:#e5e5e5;
+
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding:10px;
+    gap:10px;
+    overflow-y: scroll;
+}
+.result-container--hiden{
+    display: none
+}
+
+/* store search result */
+.store-search-result{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #ffffff;
+    width: 100%;
+    text-align: center;
 }

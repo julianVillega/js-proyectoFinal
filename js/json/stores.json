@@ -1,10 +1,10 @@
 [
-{"id":0,  "name":"Super Lu",  "address":"",  "latlng":[0,0]},
-{"id":1,  "name":"Carrefour",  "address":"",  "latlng":[0,0]},
-{"id":2,  "name":"Boutique 60",  "address":"",  "latlng":[0,0]},
-{"id":3,  "name":"Vellezo",  "address":"",  "latlng":[0,0]},
-{"id":4,  "name":"Thionis",  "address":"",  "latlng":[0,0]},
-{"id":5,  "name":"12 Visión",  "address":"",  "latlng":[0,0]},
-{"id":6,  "name":"Fravega",  "address":"",  "latlng":[0,0]},
-{"id":7,  "name":"Compu12",  "address":"",  "latlng":[0,0]},
-{"id":8,  "name":"Center Hogar",  "address":"",  "latlng":[0,0]}]
+{"id":0,  "name":"Super Lu",  "address":"Av 60 entre 9 y 10",  "latlng":[-34.92339482939376, -57.944068539651944]},
+{"id":1,  "name":"Carrefour",  "address":"Calle 12 esquina con 57",  "latlng":[-34.92306135547813, -57.94991434646028]},
+{"id":2,  "name":"Boutique 60",  "address":"Av 60 entre 10 y 11",  "latlng":[-34.92420161918452, -57.94538539468094]},
+{"id":3,  "name":"Vellezo",  "address":"Diagonal 78 sobre plaza Rocha",  "latlng":[-34.92002431628992, -57.941809051410864]},
+{"id":4,  "name":"Thionis",  "address":"Calle 12 esquina con 56",  "latlng":[-34.92264792653224, -57.95073831021403]},
+{"id":5,  "name":"12 Visión",  "address":"Calle 12 esquina con 65",  "latlng":[-34.92895673585151, -57.94224203394503]},
+{"id":6,  "name":"Fravega",  "address":"Calle 12 esquina con 58",  "latlng":[-34.92391165385243, -57.94905953795589]},
+{"id":7,  "name":"Compu12",  "address":"Calle 12 esquina con Av 60",  "latlng":[-34.9254818009615, -57.94691006397283]},
+{"id":8,  "name":"Center Hogar",  "address":"Calle 12 entre 59 y 60",  "latlng":[-34.92519975142324, -57.94735904603523]}]
