@@ -1,4 +1,7 @@
 import { Components } from "./components.js";
+import { Store } from "../modelClases.js";
+import { Map } from "./map.js";
+import { StoreSearchResult } from "./storeSearchResult.js";
 
 export class ResultContainer{
     constructor(id){
@@ -25,4 +28,17 @@ export class ResultContainer{
     removeAllElements(){
         this.container.innerHTML='';
     }
+
+    static addAllStores(){
+        const resultContainer = Components.get('mapResultContainer');
+        const searchResultComponents = [];
+
+        for(let result of Store.stores){
+            Map.addStoreMarker(result);
+            searchResultComponents.push(new StoreSearchResult(result).container);
+        }
+        resultContainer.removeAllElements();
+        resultContainer.addElemnts(...searchResultComponents);
+    }
+
 }

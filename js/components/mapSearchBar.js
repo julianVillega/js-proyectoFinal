@@ -73,16 +73,16 @@ export class Map_search_bar{
         
         this.container.querySelector("#map-search-text-input").oninput = 
         (e) => {
-            const searchResults = Store.findByName(e.target.value);
+            const stores = Store.findByName(e.target.value);
             const resultContainer = Components.get('mapResultContainer');
             Map.removeAllMarkrs();
-            const mockresults = [];
-            for(let result of searchResults){
+            const searchResultComponents = [];
+            for(let result of stores){
                 Map.addStoreMarker(result);
-                mockresults.push(new StoreSearchResult(result).container);
-                }
+                searchResultComponents.push(new StoreSearchResult(result).container);
+            }
             resultContainer.removeAllElements();
-            resultContainer.addElemnts(...mockresults);
+            resultContainer.addElemnts(...searchResultComponents);
         }
     }
 }

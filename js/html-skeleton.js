@@ -2,6 +2,7 @@
 import {Map} from "./components/map.js";
 import {Map_search_bar} from "./components/mapSearchBar.js";
 import {ResultContainer} from "./components/resultContainer.js";
+import {Store} from "./modelClases.js";
 
 
 const body = document.getElementsByTagName("body")[0];
@@ -28,7 +29,6 @@ function build_map_div(){
     const map = document.createElement("div");
     map.classList.add("map");
     map.id = 'map';
-    map.zinde=0;
     body.appendChild(new Map_search_bar('mapSearchBar').container);
     body.appendChild(new ResultContainer('mapResultContainer').container);
     body.appendChild(map);
