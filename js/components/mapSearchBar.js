@@ -17,7 +17,7 @@ export class Map_search_bar{
             .map-search-bar-container{
                 background-color:#e5e5e5;
                 position: absolute;
-                top:10px;
+                top:70px;
                 left:10px;
                 z-index: 9999;
                 padding: 0.5rem 1rem 0.5rem 1rem;

@@ -29,8 +29,8 @@ function build_map_div(){
     map.classList.add("map");
     map.id = 'map';
     map.zinde=0;
-    map.appendChild(new Map_search_bar('mapSearchBar').container);
-    map.appendChild(new ResultContainer('mapResultContainer').container);
+    body.appendChild(new Map_search_bar('mapSearchBar').container);
+    body.appendChild(new ResultContainer('mapResultContainer').container);
     body.appendChild(map);
     new Map();
 }
