@@ -3,6 +3,7 @@ import {Map} from "./map.js";
 // import { ResultContainer } from "./resultContainer.js";
 import { Components } from "./components.js";
 import { StoreSearchResult } from "./storeSearchResult.js";
+import { StoreComponent } from "./store.js";
 
 export class Map_search_bar{
     constructor(id){
@@ -39,11 +40,6 @@ export class Map_search_bar{
                 border-radius:1rem;
                 padding:0.3rem;
             }
-            button{
-                padding:0.3rem;
-                border-radius: 1rem;
-                border:none;
-            }
             .btn-selected{
                 background-color:green;
             }
@@ -76,6 +72,7 @@ export class Map_search_bar{
             const stores = Store.findByName(e.target.value);
             const resultContainer = Components.get('mapResultContainer');
             Map.removeAllMarkrs();
+            StoreComponent.closeAll();
             const searchResultComponents = [];
             for(let result of stores){
                 Map.addStoreMarker(result);

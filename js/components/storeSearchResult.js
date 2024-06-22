@@ -1,4 +1,5 @@
 import { Map } from "./map.js";
+import { StoreComponent } from "./store.js";
 
 export class StoreSearchResult{
     constructor(store){
@@ -21,5 +22,10 @@ export class StoreSearchResult{
         this.container.addEventListener('mouseleave',() => {
             Map.getStoreMarker(this.store).removeHiglight();
         });
+        this.container.addEventListener('click', () =>{
+            StoreComponent.closeAll();
+            document.querySelector('body').appendChild(new StoreComponent(this.store).container);
+        })
+
     }
 }
