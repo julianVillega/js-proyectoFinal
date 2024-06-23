@@ -1,4 +1,5 @@
 import { Price, Product } from "../modelClases.js";
+import { PriceHistory } from "./priceHistory.js";
 
 export class StoreComponent{
     static openStores = [];
@@ -47,9 +48,15 @@ export class StoreComponent{
             const html = `
                 <td>${product.name}</td>            
                 <td>${price.price}</td>        
-                <td>${price.date}</td>            
+                <td>${price.date}</td>
+                <td><button id="buttnoPriceEvolution">Price Evolution</button></td>            
             `
             tableRow.innerHTML = html;
+            const butonnPriceEvolution = tableRow.querySelector('#buttnoPriceEvolution');
+            butonnPriceEvolution.onclick = () => {
+                PriceHistory.closeAll();
+                document.querySelector('body').appendChild(new PriceHistory(product, this.store).container);
+            }
             tableBody.appendChild(tableRow);
         }
     }

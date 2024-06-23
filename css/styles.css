@@ -108,3 +108,18 @@ div.map{
 .background-higlight{
     background-color: #fca311;
 }
+
+.price-history{
+    position: absolute;
+    z-index: 9999;
+    top:130px;
+    left:300px;
+    width: 300px;
+    background-color: #ffffff;
+}
+
+.price-history_header{
+    background-color: #14213d;
+    color:#ffffff;
+    padding: 10px;
+}
