@@ -1,3 +1,4 @@
+import {StoreComponent} from "./store.js";
 export class Map{
     static storeMarkers = [];
     static map;
@@ -41,6 +42,10 @@ class ComercioMarker{
     constructor(store){
         this.marker = L.marker(store.latlng);        
         this.store = store;
+        this.marker.addEventListener('click', () =>{
+            StoreComponent.closeAll();
+            document.querySelector('body').appendChild(new StoreComponent(this.store).container);
+        })
     }
 
     higlight(){

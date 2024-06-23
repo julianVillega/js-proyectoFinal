@@ -97,3 +97,50 @@ export class Product {
     static findById = id => this.products.filter(p => p.id === id)[0];
     static findByName = name => this.products.filter(p => p.name.toLowerCase().includes(name));
 }
+
+export class Favorites{
+    static products = JSON.parse(localStorage.getItem('favorite-products')) || [];
+    static stores = JSON.parse(localStorage.getItem('favorite-stores')) || [];
+
+    static addProduct(product){
+        //adds a products to the favorite products list if it is not already in it.
+        if(!Favorites.products.includes(product)){
+            Favorites.products.push(product);
+            localStorage.setItem('favorite-products',JSON.stringify(Favorites.products));
+        }
+    }
+
+    static addStore(store){
+        //adds a products to the favorite products list if it is not already in it.
+        if(!Favorites.stores.includes(store)){
+            Favorites.stores.push(store);
+            localStorage.setItem('favorite-stores',JSON.stringify(Favorites.stores));
+        }
+    }
+
+    static removeProduct(product){
+        //removes a product from the favorite products list.
+        if(Favorites.products.includes(product)){
+            Favorites.products = Favorites.products.filter(otherProduct => otherProduct.id !== product.id);
+            localStorage.setItem('favorite-products',JSON.stringify(Favorites.products));
+        }
+    }
+
+    static removeStore(store){
+        //removes a store from the favorite products list.
+        if(Favorites.stores.includes(store)){
+            Favorites.stores = Favorites.stores.filter(otherStore => otherStore.id !== store.id);
+            localStorage.setItem('favorite-stores',JSON.stringify(Favorites.stores));
+        }
+    }
+
+    static isProductFavorite(product){
+        //checks if a product is a favorite
+        return Favorites.products.some(otherProduct => otherProduct.id === product.id);
+    }
+
+    static isStoreFavorite(store){
+        //checks if a store is a favorite
+        return Favorites.stores.some(otherStore => otherStore.id === store.id);
+    }
+}
