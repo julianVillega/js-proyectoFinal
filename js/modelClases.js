@@ -17,7 +17,7 @@ export class Store{
         this.latlng = latlng;
         stores.push(this);            
     }
-    static findById = id => this.stores.filter(store => store.id === id);
+    static findById = id => this.stores.filter(store => store.id === id)[0];
     static findByName = name => this.stores.filter(store => store.name.toLowerCase().includes(name));
     static findByAddress = address => this.stores.filter(store => store.address.toLowerCase().includes(address));
     static findBylatLng = latlng => this.stores.filter(store => store.latlng === latlng);
@@ -65,6 +65,20 @@ export class Price{
             });
         return Object.values(latestPrices);
     }
+
+    //returns the latest prices of a product across from all stores.
+    static latestPricesFromProduct(product){
+        const pricesFromProduct = Price.findByProduct(product);
+        const latestPrices = {};
+        pricesFromProduct.forEach(priceInfo =>{
+            const store = priceInfo.store;
+            const currentDate = DateFromDayMonthYearString(priceInfo.date);
+            if(!latestPrices[store]||DateFromDayMonthYearString(latestPrices[store].date) < currentDate){
+                latestPrices[store] = priceInfo;
+            }
+        })
+        return Object.values(latestPrices);
+    }
 }
 
 export class Product {
@@ -81,5 +95,5 @@ export class Product {
     }
 
     static findById = id => this.products.filter(p => p.id === id)[0];
-    static findByName = name => this.products.filter(p => p.name === name);
+    static findByName = name => this.products.filter(p => p.name.toLowerCase().includes(name));
 }

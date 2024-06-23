@@ -27,8 +27,7 @@ export class Map{
 
     static plotStoreMarkers(stores){
         for(let store of stores){
-            const storeMarker = this.addStoreMarker(store);
-            storeMarker.marker.on('click',() => armarVistaDeComercio(store))
+            this.addStoreMarker(store);
         }
     }
 

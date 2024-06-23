@@ -1,9 +1,10 @@
-import {Store} from "../modelClases.js";
+import {Store, Product, Price} from "../modelClases.js";
 import {Map} from "./map.js";
 // import { ResultContainer } from "./resultContainer.js";
 import { Components } from "./components.js";
 import { StoreSearchResult } from "./storeSearchResult.js";
 import { StoreComponent } from "./store.js";
+import { ProductSearchResult } from "./productSearchResult.js";
 
 export class Map_search_bar{
     constructor(id){
@@ -11,7 +12,7 @@ export class Map_search_bar{
         this.container = document.createElement("div");
         this.container.classList.add("map-search-bar-container");
         this.state = {
-            search_type: "stores"
+            search_type: "store"
         }
         this.container.innerHTML =`
         <style>
@@ -55,31 +56,67 @@ export class Map_search_bar{
         this.setUpBehaviour();      
     }
     setUpBehaviour(){
+        //set search type to stores
         this.container.querySelector("#btn-search-stores").onclick = () => {
             this.state.search_type = "store";
             this.container.querySelector("#btn-search-stores").classList.add('btn-selected');
             this.container.querySelector("#btn-search-products").classList.remove('btn-selected');
+            this.clearSearchResultsAndMarkers();
+            this.searchStores(document.querySelector('#map-search-text-input').value);
         };
 
+        //set serach type to products
         this.container.querySelector("#btn-search-products").onclick = () => {
             this.state.search_type = "product";
             this.container.querySelector("#btn-search-products").classList.add('btn-selected');
-            this.container.querySelector("#btn-search-stores").classList.remove('btn-selected');        
+            this.container.querySelector("#btn-search-stores").classList.remove('btn-selected');
+            this.clearSearchResultsAndMarkers();
+            this.searchProducts(document.querySelector('#map-search-text-input').value);        
         };
         
+        // setting up search
         this.container.querySelector("#map-search-text-input").oninput = 
         (e) => {
-            const stores = Store.findByName(e.target.value);
-            const resultContainer = Components.get('mapResultContainer');
-            Map.removeAllMarkrs();
-            StoreComponent.closeAll();
-            const searchResultComponents = [];
-            for(let result of stores){
-                Map.addStoreMarker(result);
-                searchResultComponents.push(new StoreSearchResult(result).container);
-            }
-            resultContainer.removeAllElements();
-            resultContainer.addElemnts(...searchResultComponents);
+            //clear previous search results.            
+            this.clearSearchResultsAndMarkers();
+
+            //perform the search for stores/products
+            this.state.search_type === 'store'? this.searchStores(e.target.value): this.searchProducts(e.target.value);
         }
     }
+
+    searchProducts(searchString){
+        const products = Product.findByName(searchString);
+        const searchResultComponents = [];
+        for(let product of products){
+            //find the stores that sell the product                    
+            const stores = Price.latestPricesFromProduct(product).map(price => Store.findById(price.store));
+            Map.plotStoreMarkers(stores);
+            searchResultComponents.push(new ProductSearchResult(product).container);
+        }
+        const resultContainer = Components.get('mapResultContainer');
+        resultContainer.addElemnts(...searchResultComponents);        
+    }
+
+    searchStores(searchString){
+        const searchResultComponents = [];
+        const stores = Store.findByName(searchString);
+        for(let store of stores){
+            Map.addStoreMarker(store);
+            searchResultComponents.push(new StoreSearchResult(store).container);
+        }
+        const resultContainer = Components.get('mapResultContainer');
+        resultContainer.addElemnts(...searchResultComponents);
+    }
+
+    clearSearchResultsAndMarkers(){
+        //remove all search results from result container
+        const resultContainer = Components.get('mapResultContainer');
+        resultContainer.removeAllElements();
+        
+        //remove markers and close store/product that were opened.
+        StoreComponent.closeAll();
+        Map.removeAllMarkrs();
+    }
+
 }

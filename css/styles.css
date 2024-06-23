@@ -66,7 +66,7 @@ div.map{
 }
 
 /* store search result */
-.store-search-result{
+.store-search-result,.product-search-result{
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -74,6 +74,7 @@ div.map{
     background-color: #ffffff;
     width: 100%;
     text-align: center;
+    align-items: center;
 }
 
 /* store styles */
