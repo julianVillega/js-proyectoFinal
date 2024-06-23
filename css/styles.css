@@ -104,3 +104,7 @@ div.map{
     border-collapse: separate;
     border-spacing: 1rem;
 }
+
+.background-higlight{
+    background-color: #fca311;
+}

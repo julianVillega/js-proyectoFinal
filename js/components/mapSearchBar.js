@@ -1,4 +1,4 @@
-import {Store, Product, Price} from "../modelClases.js";
+import {Store, Product, Price, Favorites} from "../modelClases.js";
 import {Map} from "./map.js";
 // import { ResultContainer } from "./resultContainer.js";
 import { Components } from "./components.js";
@@ -12,7 +12,8 @@ export class Map_search_bar{
         this.container = document.createElement("div");
         this.container.classList.add("map-search-bar-container");
         this.state = {
-            search_type: "store"
+            search_type: "store",
+            displayFavorites: false
         }
         this.container.innerHTML =`
         <style>
@@ -51,7 +52,7 @@ export class Map_search_bar{
             <button class="btn-selected" id="btn-search-stores">Stores</button>
             <button id="btn-search-products">Products</button>
             </form>
-            <button id="map-search-close-button">X</button>
+            <button id="map-search-favorites">Favorites</button>
         </div>`;
         this.setUpBehaviour();      
     }
@@ -61,8 +62,12 @@ export class Map_search_bar{
             this.state.search_type = "store";
             this.container.querySelector("#btn-search-stores").classList.add('btn-selected');
             this.container.querySelector("#btn-search-products").classList.remove('btn-selected');
-            this.clearSearchResultsAndMarkers();
-            this.searchStores(document.querySelector('#map-search-text-input').value);
+            //if favorites is enabled, display the favorites, else search
+            if(this.state.displayFavorites){ 
+                this.displayFavorites();
+            }else{
+                this.search(document.querySelector('#map-search-text-input').value);
+            }
         };
 
         //set serach type to products
@@ -70,19 +75,68 @@ export class Map_search_bar{
             this.state.search_type = "product";
             this.container.querySelector("#btn-search-products").classList.add('btn-selected');
             this.container.querySelector("#btn-search-stores").classList.remove('btn-selected');
-            this.clearSearchResultsAndMarkers();
-            this.searchProducts(document.querySelector('#map-search-text-input').value);        
+            
+            if(this.state.displayFavorites){    
+                this.displayFavorites();
+            }else{
+                this.search(document.querySelector('#map-search-text-input').value);
+            }
+            
         };
         
         // setting up search
         this.container.querySelector("#map-search-text-input").oninput = 
         (e) => {
-            //clear previous search results.            
-            this.clearSearchResultsAndMarkers();
-
-            //perform the search for stores/products
-            this.state.search_type === 'store'? this.searchStores(e.target.value): this.searchProducts(e.target.value);
+            this.search(e.target.value);
         }
+
+        //button favorites
+        const buttonFavorites = this.container.querySelector("#map-search-favorites");
+        buttonFavorites.onclick = () => {
+            const textInput = this.container.querySelector("#map-search-text-input");
+            buttonFavorites.classList.toggle('background-higlight');
+
+            //if the favorite stores/products were not beeing displayed, display them
+            if(!this.state.displayFavorites){
+                this.state.displayFavorites = ! this.state.displayFavorites;
+                textInput.hidden = true;
+                this.displayFavorites();
+            }
+            //if the favorites were beeing displayed, redo the previous serach
+            else{
+                this.state.displayFavorites = ! this.state.displayFavorites;
+                textInput.hidden = false;
+                this.search(textInput.value);
+            }
+        }
+    }
+
+    displayFavorites(){
+        this.clearSearchResultsAndMarkers();
+
+        const resultComponents = [];
+        //display the favorite stores if the store filter is set
+        if(this.state.search_type === 'store'){
+            Favorites.stores.forEach(store => resultComponents.push(new StoreSearchResult(store).container));
+            Map.plotStoreMarkers(Favorites.stores);
+        }
+        //display the favorite products if the product filter is set
+        if(this.state.search_type === 'product'){
+            Favorites.products.forEach(product => resultComponents.push(new ProductSearchResult(product).container));
+            for(let product of Favorites.products){
+                const stores = Price.latestPricesFromProduct(product).map(price => Store.findById(price.store));
+                Map.plotStoreMarkers(stores);
+            }
+        }
+        const resultContainer = Components.get('mapResultContainer');
+        resultContainer.addElemnts(...resultComponents);  
+    }
+
+    search(searchString){
+        //clear the result container and map markers
+        this.clearSearchResultsAndMarkers();
+        //perform the search for stores/products
+        this.state.search_type === 'store'? this.searchStores(searchString): this.searchProducts(searchString);
     }
 
     searchProducts(searchString){
