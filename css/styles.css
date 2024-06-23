@@ -90,6 +90,7 @@ div.map{
 
 .store_header{
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(2, 1fr);
     background-color: #14213d;
@@ -112,14 +113,21 @@ div.map{
 .price-history{
     position: absolute;
     z-index: 9999;
-    top:130px;
-    left:300px;
+    bottom:100px;
+    right:10px;
     width: 300px;
     background-color: #ffffff;
 }
 
 .price-history_header{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: repeat(2,auto);
     background-color: #14213d;
     color:#ffffff;
     padding: 10px;
+}
+
+.price-history_btn-close{
+    height: fit-content;
 }

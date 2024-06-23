@@ -11,8 +11,8 @@ export class PriceHistory{
         this.container.innerHTML = `
             <div class="price-history_header">
                 <h3>Prices for: ${this.product.name}</h3>
+                <button id="btn-close" class="price-history_btn-close">close</button>
                 <h3>At: ${this.store.name}</h3>
-                <button id="btn-close">close</button>
             </div>
                 <canvas id="price-chart"></canvas>
         `
